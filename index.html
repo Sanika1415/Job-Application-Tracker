@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced Job Application Tracker</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>CareerTrack</h1>
+      <p>Manage your job search in one place.</p>
+    </div>
+    <div class="header-actions">
+      <button id="backupBtn" class="btn secondary">Backup Data</button>
+      <button id="restoreBtn" class="btn secondary">Restore Data</button>
+      <input type="file" id="restoreFile" accept=".json" hidden>
+      <button id="exportBtn" class="btn secondary">Export CSV</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="reminder" class="reminder" hidden>
+      <strong>🔔 Interview Reminder</strong>
+      <p id="reminderText"></p>
+    </section>
+
+    <section class="stats">
+      <article class="stat-card">
+        <span>Total Applications</span>
+        <h2 id="totalCount">0</h2>
+      </article>
+      <article class="stat-card">
+        <span>Applied</span>
+        <h2 id="appliedCount">0</h2>
+      </article>
+      <article class="stat-card">
+        <span>Interviews</span>
+        <h2 id="interviewCount">0</h2>
+      </article>
+      <article class="stat-card">
+        <span>Selected</span>
+        <h2 id="selectedCount">0</h2>
+      </article>
+      <article class="stat-card">
+        <span>Rejected</span>
+        <h2 id="rejectedCount">0</h2>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2 id="formHeading">Add Job Application</h2>
+      <form id="applicationForm">
+        <div class="form-grid">
+          <label>
+            Company Name *
+            <input id="company" required placeholder="e.g. Infosys">
+          </label>
+          <label>
+            Job Role *
+            <input id="role" required placeholder="e.g. Software Developer">
+          </label>
+          <label>
+            Application Date *
+            <input id="dateApplied" type="date" required>
+          </label>
+          <label>
+            Status
+            <select id="status">
+              <option>Applied</option>
+              <option>Interview</option>
+              <option>Selected</option>
+              <option>Rejected</option>
+            </select>
+          </label>
+          <label>
+            Interview Date
+            <input id="interviewDate" type="date">
+          </label>
+          <label>
+            Job Location
+            <input id="location" placeholder="e.g. Pune / Remote">
+          </label>
+          <label class="full-width">
+            Notes
+            <textarea id="notes" rows="2" placeholder="Interview details, preparation, etc."></textarea>
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="submitBtn" class="btn primary">Add Application</button>
+          <button type="button" id="cancelEditBtn" class="btn secondary" hidden>Cancel Edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Application Overview</h2>
+          <p>Live statistics of your job search.</p>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="applicationChart"></canvas>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Your Applications</h2>
+          <p id="resultCount">0 applications</p>
+        </div>
+      </div>
+      <div class="filters">
+        <input id="searchInput" placeholder="Search company or role...">
+        <select id="filterStatus">
+          <option value="All">All Statuses</option>
+          <option>Applied</option>
+          <option>Interview</option>
+          <option>Selected</option>
+          <option>Rejected</option>
+        </select>
+        <button id="clearBtn" class="btn danger">Clear All</button>
+      </div>
+      <div id="applicationList" class="application-list"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
